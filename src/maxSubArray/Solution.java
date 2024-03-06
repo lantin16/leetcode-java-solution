@@ -11,57 +11,58 @@ import java.util.Arrays;
 public class Solution {
 
 
-    // 滑动窗口
-    public int maxSubArray(int[] nums) {
-        int l, r;
-
-        int maxPre = Integer.MIN_VALUE; // nums在遇到第一个正数前的最大的数
-        // 寻找第一个正数，期间记录前面非正数中的最大值
-        for (l = 0; l < nums.length; l++) {
-            if (nums[l] > 0) {  // 左指针指向的为正数
-                break;
-            } else {    // 左指针指向的不为正数
-                maxPre = Math.max(maxPre, nums[l]);
-            }
-        }
-
-        // 如果nums没有正数，则最大子数组和等于该数组中最大的非正数
-        if (l == nums.length) {
-            return maxPre;
-        }
-
-        int res = 0;
-        int firstP, lastP; // nums中第一个和最后一个正数的下标
-        firstP = l;
-        for (r = nums.length-1; r >= firstP; r--) {
-            if (nums[r] > 0) {
-                break;
-            }
-        }
-        lastP = r;
-
-        if (firstP == lastP) {  // 如果nums中只有一个正数
-            return nums[firstP];
-        }
-
-        // 如果nums至少有两个正数，则最大子数组和的两端必为两个正数
-        // 将遇到的第一个正数位置确定为滑动窗口的左边界
-        for (l = firstP; l <= lastP; l++) {
-            if (nums[l] <= 0) {
-                continue;
-            }
-            int maxSum = nums[l];  // 以l开头的当前最大的子数组和
-            int curSum = nums[l];   // 当前的子数组和
-            for (r = l + 1; r <= lastP; r++) {
-                curSum += nums[r];
-                if (nums[r] > 0) {  // r所指的为正数，需要比较下子数组和
-                    maxSum = Math.max(curSum, maxSum);
-                }
-            }
-            res = Math.max(res, maxSum);    // 将以l开头的最大子数组和与全局最大子数组和比较
-        }
-        return res;
-    }
+//    // 滑动窗口
+//    // 依旧超时
+//    public int maxSubArray(int[] nums) {
+//        int l, r;
+//
+//        int maxPre = Integer.MIN_VALUE; // nums在遇到第一个正数前的最大的数
+//        // 寻找第一个正数，期间记录前面非正数中的最大值
+//        for (l = 0; l < nums.length; l++) {
+//            if (nums[l] > 0) {  // 左指针指向的为正数
+//                break;
+//            } else {    // 左指针指向的不为正数
+//                maxPre = Math.max(maxPre, nums[l]);
+//            }
+//        }
+//
+//        // 如果nums没有正数，则最大子数组和等于该数组中最大的非正数
+//        if (l == nums.length) {
+//            return maxPre;
+//        }
+//
+//        int res = 0;
+//        int firstP, lastP; // nums中第一个和最后一个正数的下标
+//        firstP = l;
+//        for (r = nums.length-1; r >= firstP; r--) {
+//            if (nums[r] > 0) {
+//                break;
+//            }
+//        }
+//        lastP = r;
+//
+//        if (firstP == lastP) {  // 如果nums中只有一个正数
+//            return nums[firstP];
+//        }
+//
+//        // 如果nums至少有两个正数，则最大子数组和的两端必为两个正数
+//        // 将遇到的第一个正数位置确定为滑动窗口的左边界
+//        for (l = firstP; l <= lastP; l++) {
+//            if (nums[l] <= 0) {
+//                continue;
+//            }
+//            int maxSum = nums[l];  // 以l开头的当前最大的子数组和
+//            int curSum = nums[l];   // 当前的子数组和
+//            for (r = l + 1; r <= lastP; r++) {
+//                curSum += nums[r];
+//                if (nums[r] > 0) {  // r所指的为正数，需要比较下子数组和
+//                    maxSum = Math.max(curSum, maxSum);
+//                }
+//            }
+//            res = Math.max(res, maxSum);    // 将以l开头的最大子数组和与全局最大子数组和比较
+//        }
+//        return res;
+//    }
 
 
 
