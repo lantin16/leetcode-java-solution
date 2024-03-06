@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Solution {
 
-    // 双指针实现
+    // 滑动窗口实现
     public static String minWindow(String s, String t) {
         int m = s.length(), n = t.length();
 
