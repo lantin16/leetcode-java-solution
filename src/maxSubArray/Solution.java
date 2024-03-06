@@ -10,6 +10,24 @@ import java.util.Arrays;
 
 public class Solution {
 
+    // 前缀和。子数组的元素和等于两个前缀和的差
+    // 前缀和的优势：以(o1)的时间复杂度得到某块区间的总和
+    public int maxSubArray(int[] nums) {
+        // 由于只需要遍历一遍得到答案，因此不需要另外存储每个前缀和的值
+        int lastPreSum = 0; // 当前元素的前一个前缀和
+        int minPreSum = 0;  // 当前元素之前的前缀和的最小值
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int preSum = lastPreSum + nums[i];  // 计算当前前缀和
+            // 当前前缀和 - 当前元素之前的前缀和的最小值 = 到当前元素为止的子数组和的最大值
+            res = Math.max(res, preSum - minPreSum);
+            minPreSum = Math.min(minPreSum, preSum); // 维护当前元素之前的前缀和的最小值
+            lastPreSum = preSum;
+        }
+        return res;
+    }
+
+
 
 //    // 滑动窗口
 //    // 依旧超时
@@ -66,38 +84,38 @@ public class Solution {
 
 
 
-    // // 双指针
-    // // 超时，推测是两端为正数的情况太多，而每次子问题求子数组的最大和又需要先遍历整个传入的子数组求初始res，导致超时
-    // public int maxSubArray(int[] nums) {
-    //     // 如果仅有一个元素，则该元素的值就为最小子数组和
-    //     if (nums.length == 1) {
-    //         return nums[0];
-    //     }
-    //
-    //     int res = 0;
-    //     int l = 0, r = nums.length-1; // 左右指针从两边向中间逼近
-    //
-    //     while (l < r) {
-    //         if (nums[l] > 0 && nums[r] > 0) {   //子数组的左右两端应该是两个正数
-    //             int sum = 0;    // l~r的子数组和
-    //             for (int i = l; i <= r; i++) {
-    //                 sum += nums[i];
-    //             }
-    //             int sumWithoutL = maxSubArray(Arrays.copyOfRange(nums, l+1, r+1));  // 假如移出左边的正数后的子数组的最大子数组和
-    //             int sumWithoutR = maxSubArray(Arrays.copyOfRange(nums, l, r));  // 假如移出右边的正数后的子数组的最大子数组和
-    //             res = Math.max(sum, Math.max(sumWithoutL, sumWithoutR));
-    //             return res;
-    //         } else { // 两端至少有一端不大于0，去掉较小数的那一端，子数组和一定不会减小
-    //             if (nums[l] < nums[r]) {    // 去掉左端那一个
-    //                 l++;
-    //             } else {    // 去掉右端那一个
-    //                 r--;
-    //             }
-    //         }
-    //     }
-    //
-    //     // l=r.最后只剩一个数（nums中的正数少于2个时才会执行到这），只需要将这个数返回即可，无论是正负还是零
-    //     res = nums[l];
-    //     return res;
-    // }
+//     // 双指针
+//     // 超时，推测是两端为正数的情况太多，而每次子问题求子数组的最大和又需要先遍历整个传入的子数组求初始res，导致超时
+//     public int maxSubArray(int[] nums) {
+//         // 如果仅有一个元素，则该元素的值就为最小子数组和
+//         if (nums.length == 1) {
+//             return nums[0];
+//         }
+//
+//         int res = 0;
+//         int l = 0, r = nums.length-1; // 左右指针从两边向中间逼近
+//
+//         while (l < r) {
+//             if (nums[l] > 0 && nums[r] > 0) {   //子数组的左右两端应该是两个正数
+//                 int sum = 0;    // l~r的子数组和
+//                 for (int i = l; i <= r; i++) {
+//                     sum += nums[i];
+//                 }
+//                 int sumWithoutL = maxSubArray(Arrays.copyOfRange(nums, l+1, r+1));  // 假如移出左边的正数后的子数组的最大子数组和
+//                 int sumWithoutR = maxSubArray(Arrays.copyOfRange(nums, l, r));  // 假如移出右边的正数后的子数组的最大子数组和
+//                 res = Math.max(sum, Math.max(sumWithoutL, sumWithoutR));
+//                 return res;
+//             } else { // 两端至少有一端不大于0，去掉较小数的那一端，子数组和一定不会减小
+//                 if (nums[l] < nums[r]) {    // 去掉左端那一个
+//                     l++;
+//                 } else {    // 去掉右端那一个
+//                     r--;
+//                 }
+//             }
+//         }
+//
+//         // l=r.最后只剩一个数（nums中的正数少于2个时才会执行到这），只需要将这个数返回即可，无论是正负还是零
+//         res = nums[l];
+//         return res;
+//     }
 }
