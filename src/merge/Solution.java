@@ -19,12 +19,18 @@ public class Solution {
         // 先按照每个区间start值从小到大将区间排序
         // 自定义二维数组的排序：实现Comparator接口，将其传入Arrays.sort(排序的内容，比较器)）
         // 这种方式比起手动冒泡排序更快
-        Arrays.sort(intervals, new Comparator<int[]>() {    // int[] 不是基本数据类型，所以在使用map集合等等泛型中，int[]直接写就好，不能写Integer[]
-            // compare方法根据其返回值确定比较对象的大小，如果返回值为正，认为o1>o2；返回值为负，认为o1<o2；返回值为0，认为两者相等；
-            public int compare(int[] interval1, int[] interval2) {
-                return interval1[0] - interval2[0]; // Arrays.sort默认升序
-            }
-        });
+
+        // 写法一： Lambda表达式的写法更简洁
+        Arrays.sort(intervals, (interval1, interval2) -> {return interval1[0]-interval2[0];});
+
+        // 写法二：比较复杂
+//        Arrays.sort(intervals, new Comparator<int[]>() {    // int[] 不是基本数据类型，所以在使用map集合等等泛型中，int[]直接写就好，不能写Integer[]
+//            // compare方法根据其返回值确定比较对象的大小，如果返回值为正，认为o1>o2；返回值为负，认为o1<o2；返回值为0，认为两者相等；
+//            // 也可以这么理解：返回值>0交换会交换前后两个元素的位置
+//            public int compare(int[] interval1, int[] interval2) {
+//                return interval1[0] - interval2[0]; // Arrays.sort默认升序
+//            }
+//        });
 
         // 对排好序的intervals从左到右遍历每个区间
         int[] pre = intervals[0];
