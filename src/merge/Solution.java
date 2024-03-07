@@ -2,6 +2,7 @@ package merge;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -11,29 +12,31 @@ import java.util.List;
 
 public class Solution {
 
-    public static int[][] merge(int[][] intervals) {
+    // 先按照区间的左端点排序，那么在排完序的列表中，可以合并的区间一定是连续的
+    public int[][] merge(int[][] intervals) {
         int n = intervals.length;
+
         // 先按照每个区间start值从小到大将区间排序
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n-i-1; j++) {
-                if (intervals[j][0] > intervals[j+1][0]) {
-                    // 只是将引用互换了，达到了交换两个数组位置的目的（类似于交换两个链表结点）
-                    int[] tmp = intervals[j];
-                    intervals[j] = intervals[j+1];
-                    intervals[j+1] = tmp;
-                }
+        // 自定义二维数组的排序：实现Comparator接口，将其传入Arrays.sort(排序的内容，比较器)）
+        // 这种方式比起手动冒泡排序更快
+        Arrays.sort(intervals, new Comparator<int[]>() {    // int[] 不是基本数据类型，所以在使用map集合等等泛型中，int[]直接写就好，不能写Integer[]
+            // compare方法根据其返回值确定比较对象的大小，如果返回值为正，认为o1>o2；返回值为负，认为o1<o2；返回值为0，认为两者相等；
+            public int compare(int[] interval1, int[] interval2) {
+                return interval1[0] - interval2[0]; // Arrays.sort默认升序
             }
-        }
+        });
 
         // 对排好序的intervals从左到右遍历每个区间
         int[] pre = intervals[0];
         List<int[]> res = new ArrayList<>();    // 存放结果
         for (int k = 1; k < n; k++) {
-            // todo 包含的情况没做，还得细分
             if (intervals[k][0] <= pre[1]) {    // 两个区间有重叠的情况（右边的左端在左边的右端的左边）
                 // 合并
-                int[] merged = {pre[0], intervals[k][1]};
-                pre = merged;
+                if (intervals[k][1] > pre[1]) { // 有重叠但不包含
+                    pre[0] = pre[0];
+                    pre[1] = intervals[k][1];
+                }
+                // 有重叠且后面的区间被前一个包含时合并后的区间仍为pre
             } else {    // 两个区间没有重叠的情况（右边的左端在左边的右端的右边）
                 // 将前面合并好的区间先加入res
                 res.add(pre);
@@ -42,14 +45,5 @@ public class Solution {
         }
         res.add(pre);   // 将最后一个区间加入（无论是合并还是没合并的）
         return res.toArray(new int[res.size()][]);
-    }
-
-    public static void main(String[] args) {
-        int[][] arr = {
-                {2,1},
-                {1,2},
-                {0,5}
-        };
-
     }
 }
