@@ -10,22 +10,42 @@ import java.util.Arrays;
 
 public class Solution {
 
-    // 前缀和。子数组的元素和等于两个前缀和的差
-    // 前缀和的优势：以(o1)的时间复杂度得到某块区间的总和
+
+    // 动态规划
+    // 用 f(i) 表示以第i个数结尾的所有子数组的最大子数组和，所求即为 max{f(i)}
+    // 如何求每个 f(i) ?
+    // —— f(i) 可能两种情况：
+    // 1. 如果加入nums[i]后，nums[i]单独作为一段的比起nums[i]加入前面f(i-1)对应的子数组段更大，则f(i)对应的子数组段就为nums[i]这个单独段
+    // 2. 反之f(i)对应的子数组段为nums[i]加入f(i-1)对应的子数组段后的子数组段
+    // 因此 f(i) = max{nums[i], f(i-1) + nums[i]}
     public int maxSubArray(int[] nums) {
-        // 由于只需要遍历一遍得到答案，因此不需要另外存储每个前缀和的值
-        int lastPreSum = 0; // 当前元素的前一个前缀和
-        int minPreSum = 0;  // 当前元素之前的前缀和的最小值
+        int pre = 0;    // f(i-1)
         int res = Integer.MIN_VALUE;
         for (int i = 0; i < nums.length; i++) {
-            int preSum = lastPreSum + nums[i];  // 计算当前前缀和
-            // 当前前缀和 - 当前元素之前的前缀和的最小值 = 到当前元素为止的子数组和的最大值
-            res = Math.max(res, preSum - minPreSum);
-            minPreSum = Math.min(minPreSum, preSum); // 维护当前元素之前的前缀和的最小值
-            lastPreSum = preSum;
+            int cur = Math.max(nums[i], pre + nums[i]); // f(i) = max{nums[i], f(i-1) + nums[i]}
+            res = Math.max(res, cur);
+            pre = cur;
         }
         return res;
     }
+
+
+    // // 前缀和。子数组的元素和等于两个前缀和的差
+    // // 前缀和的优势：以(o1)的时间复杂度得到某块区间的总和
+    // public int maxSubArray(int[] nums) {
+    //     // 由于只需要遍历一遍得到答案，因此不需要另外存储每个前缀和的值
+    //     int lastPreSum = 0; // 当前元素的前一个前缀和
+    //     int minPreSum = 0;  // 当前元素之前的前缀和的最小值
+    //     int res = Integer.MIN_VALUE;
+    //     for (int i = 0; i < nums.length; i++) {
+    //         int preSum = lastPreSum + nums[i];  // 计算当前前缀和
+    //         // 当前前缀和 - 当前元素之前的前缀和的最小值 = 到当前元素为止的子数组和的最大值
+    //         res = Math.max(res, preSum - minPreSum);
+    //         minPreSum = Math.min(minPreSum, preSum); // 维护当前元素之前的前缀和的最小值
+    //         lastPreSum = preSum;
+    //     }
+    //     return res;
+    // }
 
 
 
