@@ -1,6 +1,4 @@
-package rotate;
-
-import java.util.Arrays;
+package rotate_189;
 
 /**
  * leetcode No.189 轮转数组
