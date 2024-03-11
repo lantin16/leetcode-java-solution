@@ -24,10 +24,8 @@ public class Solution {
         // 此时p指向尾结点，q指向倒数第(n+1)个结点
         if (q == null) {    // 如果n=sz，即要删的为头结点，q压根没有出发
             head = head.next;
-        } else if (p.next == null) {    // 如果要删的为尾结点
-            p.next = null;
         } else {
-            p.next = p.next.next;
+            q.next = q.next.next;
         }
 
         return head;
