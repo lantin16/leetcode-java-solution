@@ -146,7 +146,7 @@ public class Solution {
     // class UnionFind {
     //     int count;  // 记录连通分量个数
     //     int[] parent;   // parent[i]表示i的父节点
-    //     int[] rank;     // 秩，以i为根的树的高度
+    //     int[] rank;     // 秩，以i为根的树的高度上界（因为路径压缩可能会改变树的高度）
     //
     //     // 构造方法，初始化并查集
     //     public UnionFind(char[][] grid) {
