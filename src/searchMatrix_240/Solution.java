@@ -1,4 +1,4 @@
-package searchMatrix;
+package searchMatrix_240;
 
 /**
  * No.240 搜索二维矩阵Ⅱ
