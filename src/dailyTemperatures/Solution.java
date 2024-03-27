@@ -65,6 +65,8 @@ public class Solution {
             }
             stk.push(i);
         }
+
+        // 最后单调栈中可能还留有一个递减序列，这些元素下标本应出栈然后将对应的res部分设为0，但由于res初始化时默认是零，因此可以不用处理
         return res;
     }
 }
