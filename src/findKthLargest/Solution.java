@@ -48,6 +48,7 @@ public class Solution {
      * 面试可能会要求自己实现一个堆，而不让直接用PriorityQueue，因此还得掌握大根堆的实现方法
      * [建堆]、[调整]、[删除]
      */
+    // TODO 1.看懂这个代码 2.看下手动实现大根堆的完整代码，建堆、插入、删除、调整等 3. 看下快速排序的模板，总结一下
     public int findKthLargest(int[] nums, int k) {
         int heapSize = nums.length;
         buildMaxHeap(nums, heapSize);
@@ -60,8 +61,10 @@ public class Solution {
     }
 
     // 构建大根堆
+    // 调整大根堆是从最后一个非叶子结点为根节点的子树开始，将所有非叶子结点为根的子树全部调整好
+    // 向大根堆中插入元素则是插入到最后一个位置，然后沿其父节点向上调整
     public void buildMaxHeap(int[] a, int heapSize) {
-        for (int i = heapSize / 2; i >= 0; --i) {
+        for (int i = heapSize / 2 - 1; i >= 0; --i) {    // 大根堆储存在从0开始的数组中时，最后一个非叶子结点在数组中的下标为(size/2) -1
             maxHeapify(a, i, heapSize);
         }
     }
