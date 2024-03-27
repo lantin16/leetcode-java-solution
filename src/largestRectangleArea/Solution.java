@@ -21,6 +21,7 @@ public class Solution {
      * 那宽度就是这两个下标之间的距离了，但是要排除这两个下标，所以是right-left-1， 用单调栈就可以很方便确定这两个边界了
      */
     // 单调栈
+    // 细节：1. 这里单调栈存的是索引，根据索引就可以找到对应高度。 2. 在遍历完数组的所有元素后，单调栈中是很可能留有一个单调序列的，因为没有元素使其出栈，根据实际来处理最后的元素。
     public static int largestRectangleArea(int[] heights) {
         int maxArea = Integer.MIN_VALUE;
         Deque<Integer> stk = new LinkedList<>();    // 单调递增栈，栈中记录的是下标，通过下标就可以获得高度
