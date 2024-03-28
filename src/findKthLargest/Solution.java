@@ -48,10 +48,12 @@ public class Solution {
      * 面试可能会要求自己实现一个堆，而不让直接用PriorityQueue，因此还得掌握大根堆的实现方法
      * [建堆]、[调整]、[删除]
      */
-    // TODO 1.看懂这个代码 2.看下手动实现大根堆的完整代码，建堆、插入、删除、调整等 3. 看下快速排序的模板，总结一下
     public int findKthLargest(int[] nums, int k) {
         int heapSize = nums.length;
-        buildMaxHeap(nums, heapSize);
+        buildMaxHeap(nums, heapSize); // 数组相当于已经存储好了堆，但是还需要调整，使得满足大根堆性质
+
+        // 将数组 nums 转换成一个大根堆后，nums[0] 就是堆中的最大元素，将它与当前堆中的最后一个元素 nums[nums.length - 1] 交换，这样最大元素就放到了数组的末尾
+        // （相当于将堆顶元素删除，然后从末尾提一个元素到堆顶，继续进行调整），实际上被扔到nums尾部的元素不再属于堆，heapSize减少。
         for (int i = nums.length - 1; i >= nums.length - k + 1; --i) {
             swap(nums, 0, i);
             --heapSize;
@@ -72,16 +74,16 @@ public class Solution {
     // 调整大根堆，使得以i为根的子树满足大根堆性质，即父节点大于等于左右子节点。
     // 如果发现子节点中有比父节点大的值，就将它与父节点交换，并对交换后的子节点继续调整
     public void maxHeapify(int[] a, int i, int heapSize) {
-        int l = i * 2 + 1, r = i * 2 + 2, largest = i;
+        int l = i * 2 + 1, r = i * 2 + 2, largest = i;  // 左右子节点的下标，largest用于记录下标i、l、r中对应的最大值的下标
         if (l < heapSize && a[l] > a[largest]) {
             largest = l;
         }
         if (r < heapSize && a[r] > a[largest]) {
             largest = r;
         }
-        if (largest != i) {
-            swap(a, i, largest);
-            maxHeapify(a, largest, heapSize);
+        if (largest != i) { // 如果左右子节点中有比父节点大的值
+            swap(a, i, largest);    // 将父节点与左右子节点中较大的一个交换
+            maxHeapify(a, largest, heapSize);   // 交换后，以largest为根的子树可能不满足大根堆性质，因此继续调整
         }
     }
 
