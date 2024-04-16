@@ -131,14 +131,14 @@ public class BagProblem {
         }
 
 
-//        // 也可以先遍历背包容量再遍历物品
-//        for (int j = 1; j <= bagSize; j++) {    // 这里j从1开始即可，因为j=0即背包容量为0时是放不进任何物品的，因此第0列的都是0
-//            for (int i = 0; i < goods; i++) {
-//                if (j >= weight[i]) {
-//                    dp[j] = Math.max(dp[j], dp[j-weight[i]] + value[i]);
-//                }
-//            }
-//        }
+       // // 也可以先遍历背包容量再遍历物品
+       // for (int j = 1; j <= bagSize; j++) {    // 这里j从1开始即可，因为j=0即背包容量为0时是放不进任何物品的，因此第0列的都是0
+       //     for (int i = 0; i < goods; i++) {
+       //         if (j >= weight[i]) {
+       //             dp[j] = Math.max(dp[j], dp[j-weight[i]] + value[i]);
+       //         }
+       //     }
+       // }
 
 
         // 5. 打印dp数组
