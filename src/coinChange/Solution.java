@@ -22,49 +22,49 @@ public class Solution {
     // 时间复杂度：O(nc)，其中n为coins数组长度，即面额数，c为amount金额数。分析：一共需要计算c个状态的答案，且每个状态的答案memo[c]由于上面的记忆化的措施只计算了一次，
     // 而计算一个状态的答案需要枚举n个面额值，所以一共需要 O(nc) 的时间复杂度。
     // 空间复杂度：O(c)，其中c为amount金额数。分析：递归深度为O(c)，记忆数组的空间复杂度也为O(c)
-    int[] memo; // 记忆数组
-    public int coinChange(int[] coins, int amount) {
-        memo = new int[amount + 1]; // memo[i]表示凑出金额i所需的最少硬币数，凑不出来就为-1
-        return findWay(coins, amount);
-    }
-
-    /**
-     * 返回中coins中选择凑成金额amount的最少硬币数
-     * @param coins
-     * @param amount
-     * @return
-     */
-    public int findWay(int[] coins, int amount) {
-        if (amount < 0) {   // 这种凑法凑不出来，走到头了
-            return -1;
-        }
-
-        if (amount == 0) {
-            return 0;   // 这一步其实是结束步，回溯到上一层就是刚好凑够的情况
-        }
-
-        // 先看记忆数组中是否已经计算过了凑amount金额的最少硬币数
-        if (memo[amount] != 0) {    // 如果该位置已经不是初始值0了，代表该金额之前已经被计算过并保存到了记忆数组
-            return memo[amount];    // 直接返回记忆数组中保存的结果
-        }
-
-        // 如果凑amount金额的之前没有计算过，则开始向下递归
-        int min = Integer.MAX_VALUE;
-        for (int coin : coins) {    // 尝试在这里放入每一种硬币
-            int res = findWay(coins, amount - coin);    // 下面只需要凑 amount - coin
-            if (res >= 0) { // 凑的出amount的情况
-                min = Math.min(min, res + 1);   // res是凑 amount - coin需要的最少硬币数，加上本轮放入的coin的1才是凑amount的最少硬币数
-            }
-            // 对于凑不出amount的情况（返回-1）则跳过
-        }
-
-        // 无论凑不凑得出amount，都在记忆数组中保存结果，凑不出就保存-1
-        // 为什么min == Integer.MAX_VALUE代表凑不出呢？
-        // ——因为上面for循环尝试了放入每一种硬币，只要有一种硬币向下递归证明凑的出来，min就会被设为考虑了该种情况的最少硬币数，就一定比MAX_VALUE小
-        // 只有当所有尝试都凑不出，才代表这个amount真的凑不出，min也就不会被改写，仍为MAX_VALUE
-        memo[amount] = (min == Integer.MAX_VALUE ? -1 : min);
-        return memo[amount];
-    }
+    // int[] memo; // 记忆数组
+    // public int coinChange(int[] coins, int amount) {
+    //     memo = new int[amount + 1]; // memo[i]表示凑出金额i所需的最少硬币数，凑不出来就为-1
+    //     return findWay(coins, amount);
+    // }
+    //
+    // /**
+    //  * 返回中coins中选择凑成金额amount的最少硬币数
+    //  * @param coins
+    //  * @param amount
+    //  * @return
+    //  */
+    // public int findWay(int[] coins, int amount) {
+    //     if (amount < 0) {   // 这种凑法凑不出来，走到头了
+    //         return -1;
+    //     }
+    //
+    //     if (amount == 0) {
+    //         return 0;   // 这一步其实是结束步，回溯到上一层就是刚好凑够的情况
+    //     }
+    //
+    //     // 先看记忆数组中是否已经计算过了凑amount金额的最少硬币数
+    //     if (memo[amount] != 0) {    // 如果该位置已经不是初始值0了，代表该金额之前已经被计算过并保存到了记忆数组
+    //         return memo[amount];    // 直接返回记忆数组中保存的结果
+    //     }
+    //
+    //     // 如果凑amount金额的之前没有计算过，则开始向下递归
+    //     int min = Integer.MAX_VALUE;
+    //     for (int coin : coins) {    // 尝试在这里放入每一种硬币
+    //         int res = findWay(coins, amount - coin);    // 下面只需要凑 amount - coin
+    //         if (res >= 0) { // 凑的出amount的情况
+    //             min = Math.min(min, res + 1);   // res是凑 amount - coin需要的最少硬币数，加上本轮放入的coin的1才是凑amount的最少硬币数
+    //         }
+    //         // 对于凑不出amount的情况（返回-1）则跳过
+    //     }
+    //
+    //     // 无论凑不凑得出amount，都在记忆数组中保存结果，凑不出就保存-1
+    //     // 为什么min == Integer.MAX_VALUE代表凑不出呢？
+    //     // ——因为上面for循环尝试了放入每一种硬币，只要有一种硬币向下递归证明凑的出来，min就会被设为考虑了该种情况的最少硬币数，就一定比MAX_VALUE小
+    //     // 只有当所有尝试都凑不出，才代表这个amount真的凑不出，min也就不会被改写，仍为MAX_VALUE
+    //     memo[amount] = (min == Integer.MAX_VALUE ? -1 : min);
+    //     return memo[amount];
+    // }
 
 
 
