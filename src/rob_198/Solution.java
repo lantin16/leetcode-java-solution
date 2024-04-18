@@ -1,4 +1,4 @@
-package rob;
+package rob_198;
 
 /**
  * No.198 打家劫舍
@@ -11,6 +11,11 @@ package rob;
 
 public class Solution {
 
+    /**
+     * 动态规划
+     * @param nums
+     * @return
+     */
     public int rob(int[] nums) {
         int n = nums.length;
         if (n == 1) {
