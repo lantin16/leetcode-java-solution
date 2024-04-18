@@ -2,6 +2,13 @@ package bagProblem;
 
 import java.util.Arrays;
 
+
+/**
+ * 背包问题
+ * 01背包、完全背包、多重背包
+ * 总结见：https://programmercarl.com/%E8%83%8C%E5%8C%85%E6%80%BB%E7%BB%93%E7%AF%87.html#%E6%80%BB%E7%BB%93
+ */
+
 public class BagProblem {
     public static void main(String[] args) {
         int[] weight = {1,3,4};
@@ -165,7 +172,7 @@ public class BagProblem {
      * @param nums 每种物品的数量
      * @param bagSize 背包的容量
      */
-    public static void CompletePack(int[] weight, int[] value, int[] nums, int bagSize) {
+    public static void MultiplePack(int[] weight, int[] value, int[] nums, int bagSize) {
         int n = weight.length;  // 物品的种类数
 
         // 1. dp[j]表示容量为j的背包，所背的物品价值可以最大为dp[j]
