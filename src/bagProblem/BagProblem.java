@@ -149,4 +149,52 @@ public class BagProblem {
         // 最后dp[bagSize]即为所求
     }
 
+
+
+
+
+    /**
+     * 多重背包问题，每种物品的数量不是无限，而是每件物品最多有Mi件可用，求解将哪些物品装入背包可使这些物品的耗费的空间 总和不超过背包容量，且价值总和最大。
+     * 多重背包和01背包是非常像的，每件物品最多有Mi件可用，把Mi件摊开，其实就是一个01背包问题了。
+     * 只用在01背包代码里面在加一个for循环遍历每种商品的数量即可。
+     *
+     * 动态规划 + 一维滚动数组
+     *
+     * @param weight 物品的重量
+     * @param value 物品的价值
+     * @param nums 每种物品的数量
+     * @param bagSize 背包的容量
+     */
+    public static void CompletePack(int[] weight, int[] value, int[] nums, int bagSize) {
+        int n = weight.length;  // 物品的种类数
+
+        // 1. dp[j]表示容量为j的背包，所背的物品价值可以最大为dp[j]
+        int[] dp = new int[bagSize + 1];
+
+        // 2. 递推公式：
+        // 一维的形式：dp[j] = max{dp[j], dp[j - k * weight[i]] + k * value[i]]}
+
+        // 3. 初始化
+        // 全部初始化为0即可，下面遍历就从i=0开始遍历
+
+        // 4. 遍历顺序
+        // 按照01背包处理，因此必须先遍历物品再遍历背包容量，且j必须倒序遍历（整体而言还是保证了物品按照数组中的相对顺序被添加，只不过每个物品可能有连续的多个）
+        for (int i = 0; i < n; i++) {   // 注意dp数组全初始化为0这里的i就得从0开始
+            // j只能倒序遍历
+            for (int j = bagSize; j >= weight[i]; j--) {  // 注意：这里j向左遍历到weight[i]就可以了，容量再小i就放不进去了，此时保持上一行的dp[j]即可
+                // 加一个for循环遍历每种商品的数量（对于每种物品和背包容量，考虑这种物品到底加入多少个才为最佳）
+                for (int k = 1; k <= nums[i] && j >= k * weight[i]; k++) {
+                    dp[j] = Math.max(dp[j], dp[j - k * weight[i]] + k * value[i]);
+                }
+            }
+        }
+
+
+        // 5. 打印dp数组
+        for (int j = 0; j <= bagSize; j++) {
+            System.out.print(dp[j] + " ");
+        }
+
+        // 最后dp[bagSize]即为所求
+    }
 }
