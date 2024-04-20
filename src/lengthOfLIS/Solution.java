@@ -91,8 +91,8 @@ public class Solution {
     //             len++;
     //             tails[len - 1] = nums[i];
     //         } else {    // 如果遇到一个比 tails 的尾部元素更小的值，说明发现了某个上升子序列的、更小的末尾元素，需要更新它（如果相等的话按照下面的代码会更新同样的值，不影响结果）
-    //             // 在 tails 数组中二分查找，找到第一个比nums[i]小的数 tails[pos] ，并更新 tails[pos+1]=nums[i]
-    //             int l = 0, r = len-1, pos = -1;    // pos指向tails中第一个比nums[i]小的数。如果找不到比nums[i]小的tails元素，则应该更新tails[0]，故pos初始化为-1
+    //             // 在 tails 数组中二分查找，找到最后一个比nums[i]小的数 tails[pos] ，并更新 tails[pos+1]=nums[i]
+    //             int l = 0, r = len-1, pos = -1;    // pos指向tails中最后一个比nums[i]小的数。如果找不到比nums[i]小的tails元素，则应该更新tails[0]，故pos初始化为-1
     //             while (l <= r) {
     //                 int mid = l + (r-l)/2;  // 中间或偏左
     //                 if (nums[i] > tails[mid]) { // 至少找到一个比nums[i]的了，先更新pos到这里
