@@ -17,7 +17,7 @@ public class Solution {
     /**
      * 动态规划 + 二维dp
      * 直线不能相交，相当于在nums1和nums2中找到一个公共子序列，且这个子序列不能改变相对顺序，只要相对顺序不改变，链接相同数字的直线就不会相交。
-     * 转换为最长公共子序列问题
+     * 转换为了最长公共子序列问题
      *
      * 参考题解：https://leetcode.cn/problems/uncrossed-lines/solutions/788174/gong-shui-san-xie-noxiang-xin-ke-xue-xi-bkaas
      *
