@@ -75,7 +75,7 @@ public class Solution {
     public int numDistinct(String s, String t) {
         // 先将字符串s和t转为字符数组存储起来，后面用s[i-1]访问字符比起s.charAt(i-1)速度更快
         char[] sc = s.toCharArray();
-        char[] tc = s.toCharArray();
+        char[] tc = t.toCharArray();
         int sl = s.length(), tl = t.length();
 
         // dp[j]：在s[0:i-1]的子序列中出现t[0:j-1]的个数
