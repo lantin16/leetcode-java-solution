@@ -50,7 +50,6 @@ public class Solution {
     /**
      * 改进：用数组代替哈希表存储字母最后出现的位置
      * 用数组比用哈希表时间性能更好，先转字符数组再访问比直接用s.charAt(i)访问时间性能更好
-     *
      * @param s
      * @return
      */
